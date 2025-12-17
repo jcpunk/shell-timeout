@@ -1,0 +1,7 @@
+RPMS/*
+SRPMS/*
+BUILD/*
+build/*
+*.tar.gz
+*.rpm
+.*.sw[po]
