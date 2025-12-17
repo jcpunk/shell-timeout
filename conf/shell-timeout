@@ -1,0 +1,24 @@
+# Drop-ins may be placed in /etc/default/shell-timeout.d/*.conf
+
+# Inactivity timeout in seconds, 0 to disable
+TMOUT_SECONDS=0
+
+# Make TMOUT readonly in the shell (if possible)
+#
+# Values other than: `yes`, `true`, or `1` are treated as `no`
+TMOUT_READONLY=no
+
+# List of UID/GID to setup timeout consideration
+#
+# Format is space-separated numeric IDs
+# Content of drop-ins will be appended
+TMOUT_UIDS=""
+TMOUT_GIDS=""
+
+# List of UID/GID to remove from consideration
+# Useful when an earlier drop-in adds a user you want to exclude
+#
+# Format is space-separated numeric IDs
+# Content of drop-ins will be appended
+TMOUT_UIDS_NOCHECK=""
+TMOUT_GIDS_NOCHECK=""
