@@ -1,3 +1,0 @@
-addFilter("spelling-error .* csh")
-addFilter("spelling-error .* tcsh")
-addFilter("spelling-error .* zsh")
