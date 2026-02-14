@@ -2,7 +2,7 @@
 %bcond tests 0
 
 Name:		shell-timeout
-Version:	0.1.0
+Version:	0.2.0
 Release:	1%{?dist}
 BuildArch:	noarch
 
@@ -56,5 +56,8 @@ make test
 %config(noreplace) /etc/default/shell-timeout
 
 %changelog
+* Fri Jan 13 2025 Pat Riehecky <riehecky@fnal.gov> - 0.2.0-1
+* Finish t/csh profile
+
 * Wed Dec 17 2025 Pat Riehecky <riehecky@fnal.gov> - 0.1.0-1
 * Initial build
