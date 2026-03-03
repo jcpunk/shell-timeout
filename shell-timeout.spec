@@ -8,10 +8,7 @@ BuildArch:	noarch
 
 License:	GPL-3.0-or-later
 Url:		https://github.com/fermitools/shell-timeout
-
-# source archive is made with `make sources` from the upstream git repo
-# or pulled from the github tag
-Source:		%{url}/archive/refs/tags/%{version}.tar.gz
+Source:		%{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 Requires:	coreutils filesystem sed
 BuildRequires:	make
@@ -56,7 +53,7 @@ make test
 %config(noreplace) /etc/default/shell-timeout
 
 %changelog
-* Fri Jan 13 2025 Pat Riehecky <riehecky@fnal.gov> - 0.2.0-1
+* Tue Mar 3 2026 Pat Riehecky <riehecky@fnal.gov> - 0.2.0-1
 * Finish t/csh profile
 
 * Wed Dec 17 2025 Pat Riehecky <riehecky@fnal.gov> - 0.1.0-1
