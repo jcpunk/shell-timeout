@@ -1,19 +1,18 @@
-# test suite runs a bunch of podman, can't really do that within the rpm buildroot in koji
+# test suite runs a bunch of podman, can't do that within the buildroot of koji or mock
 %bcond tests 0
 
 Name:		shell-timeout
 Version:	0.2.0
-Release:	1%{?dist}
+Release:	%autorelease
 BuildArch:	noarch
 
 License:	GPL-3.0-or-later
 Url:		https://github.com/fermitools/shell-timeout
-Source:		%{url}/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source:		%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
 Requires:	coreutils filesystem sed
-BuildRequires:	make
 %if %{with tests}
-BuildRequires:	podman
+BuildRequires:	make podman
 %endif
 
 Summary:	A simple set of scripts for setting shell timeout automatically
@@ -25,20 +24,21 @@ When a matching user logs in, their shell will automatically terminate
 after a configured period of inactivity.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 
 %install
 # these must be in /etc/profile.d to actually work
-%{__install} -m 644 -D src/shell-timeout.sh  %{buildroot}%{_sysconfdir}/profile.d/shell-timeout.sh
-%{__install} -m 644 -D src/shell-timeout.csh %{buildroot}%{_sysconfdir}/profile.d/shell-timeout.csh
+install -m 644 -D src/shell-timeout.sh  %{buildroot}%{_sysconfdir}/profile.d/shell-timeout.sh
+install -m 644 -D src/shell-timeout.csh %{buildroot}%{_sysconfdir}/profile.d/shell-timeout.csh
 
 # the scripts are hard coded to check
 #   /etc/default/shell-timeout
 #   /etc/default/shell-timeout.d
 # variables here would be counter-productive as they don't change the code
-%{__install} -m 644 -D conf/shell-timeout %{buildroot}/etc/default/shell-timeout
+install -m 644 -D conf/shell-timeout %{buildroot}/etc/default/shell-timeout
+mkdir %{buildroot}/etc/default/shell-timeout.d
 
 %check
 %if %{with tests}
@@ -47,14 +47,11 @@ make test
 
 %files
 %license LICENSE
-%doc README.md conf/shell-timeout
+%doc README.md
 %{_sysconfdir}/profile.d/shell-timeout.sh
 %{_sysconfdir}/profile.d/shell-timeout.csh
 %config(noreplace) /etc/default/shell-timeout
+%dir /etc/default/shell-timeout.d
 
 %changelog
-* Tue Mar 3 2026 Pat Riehecky <riehecky@fnal.gov> - 0.2.0-1
-* Finish t/csh profile
-
-* Wed Dec 17 2025 Pat Riehecky <riehecky@fnal.gov> - 0.1.0-1
-* Initial build
+%autochangelog
